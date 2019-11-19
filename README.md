@@ -30,7 +30,7 @@ $ npm i @intelligo/bonfire
 _Before you use it, make sure you inject the change detection to your component!_
 
 ```typescript
-import { ReRenderOnChange, SetChecker, Observable } from '@intelligo/bonfire';
+import { ReRenderOnChange, SetChecker, Observable } from '@intelligo.ai/bonfire';
 
 @ReRenderOnChange()
 @Component({
