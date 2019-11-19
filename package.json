@@ -1,0 +1,32 @@
+{
+  "name": "bonfire",
+  "version": "1.0.0",
+  "description": "Open source decorators utils for angular",
+  "main": "./src/index.ts",
+  "scripts": {
+    "start": "tsc -w",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "angular",
+    "rxjs",
+    "mobx",
+    "change",
+    "detection",
+    "observable",
+    "subject",
+    "typescript",
+    "javascript"
+  ],
+  "author": "Tzach Bonfil <https://tzachbonfilportfolio.web.app/>",
+  "license": "MIT",
+  "dependencies": {
+    "on-change": "^1.6.2",
+    "rxjs": "^6.5.3",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/uuid": "^3.4.6"
+  }
+}
