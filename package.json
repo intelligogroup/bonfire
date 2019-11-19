@@ -1,12 +1,14 @@
 {
   "name": "@intelligo.ai/bonfire",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Open source decorators utils for angular",
-  "main": "./src/index.ts",
+  "main": "./dist/lib/index",
+  "types": "./dist/types/index",
   "scripts": {
     "start": "tsc -w",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "tsc"
   },
   "keywords": [
     "angular",
