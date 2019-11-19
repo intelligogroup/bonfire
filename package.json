@@ -1,5 +1,5 @@
 {
-  "name": "bonfire",
+  "name": "@intelligo.ai/bonfire",
   "version": "1.0.0",
   "description": "Open source decorators utils for angular",
   "main": "./src/index.ts",
