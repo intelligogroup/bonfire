@@ -47,7 +47,7 @@ export function SetChecker() {
         });
     };
 }
-export function Observable() {
+export function WithObservable() {
     return function (target, key) {
         var newKey = key + "$";
         target[newKey] = new BehaviorSubject(target[key]);
