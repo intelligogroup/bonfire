@@ -9,8 +9,8 @@ Bonfire is open source decorators utils for angular.
 - Make change detection easy
 - Makes Observable for you
 
-You can your code cleaner and simpler with adding just 2 decorators to your code.
-We know that angular change detection is not simple if you want it to be officent, so I made Bonfire.
+You can make your code cleaner and simpler with adding just 2 decorators to your code.
+We know that angular change detection is not simple if you want it to be officiant. So I made Bonfire.
 Simple solution to hard problem.
 
 _Now there is no use to call the change detection!_
@@ -18,8 +18,6 @@ _Now there is no use to call the change detection!_
 ## Installation
 
 Bonfire requires [Node.js](https://nodejs.org/) v4+ to run.
-
-Install the dependencies and devDependencies and start the server.
 
 ```sh
 $ npm i @intelligo.ai/bonfire
@@ -32,7 +30,7 @@ See Examples Below:
 | Tools | What it does?  | How to use?  |
 | :-----: | :-: | :-: |
 | (1) ReRenderOnChange | The decorator on the component is actually what causes the other decorators to use change detection | Put it on the top of the component and make sure the component have change detection injected |
-| (2) SetPicker | Put it on a property we want to trigger re-render ***only*** if it changed | Just put it on the property |
+| (2) SetChecker | Put it on a property we want to trigger re-render ***only*** if it changed | Just put it on the property |
 | (3) WithObservable | Generate a behavior subject (Observable), Which emit values that stored in the original property (You don't need to maintain it at all! Just use it) | Put in on the original property and next to it write the same property name with '$', it will store automatically |
 
 
