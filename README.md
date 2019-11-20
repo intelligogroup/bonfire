@@ -15,7 +15,7 @@ Simple solution to hard problem.
 
 _Now there is no use to call the change detection!_
 
-### Installation
+## Installation
 
 Bonfire requires [Node.js](https://nodejs.org/) v4+ to run.
 
@@ -25,28 +25,55 @@ Install the dependencies and devDependencies and start the server.
 $ npm i @intelligo/bonfire
 ```
 
-### Where to use
+
+## The Tools
+See Examples Below:
+
+| Tools | What it does?  | How to use?  |
+| :-----: | :-: | :-: |
+| (1) ReRenderOnChange | The decorator on the component is actually what causes the other decorators to use change detection | Put it on the top of the component and make sure the component have change detection injected |
+| (2) SetPicker | Put it on a property we want to trigger re-render ***only*** if it changed | Just put it on the property |
+| (3) WithObservable | Generate a behavior subject (Observable), Which emit values that stored in the original property (You don't need to maintain it at all! Just use it) | Put in on the original property and next to it write the same property name with '$', it will store automatically |
+
+
+## Where to use
 
 _Before you use it, make sure you inject the change detection to your component!_
 
 ```typescript
-import { ReRenderOnChange, SetChecker, Observable } from '@intelligo.ai/bonfire';
+import { ReRenderOnChange, SetChecker, WithObservable } from '@intelligo.ai/bonfire';
 
-@ReRenderOnChange()
+@ReRenderOnChange() // <== (1)
 @Component({
   selector: 'my-component',
   templateUrl: './my-component.component.html',
   styleUrls: ['./my-component.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush // <== IMPORTANT
 })
-export class SupportComponent {
-  @SetChecker() group: ISomeInterface;
-  @Observable() showLoader = false;
-  showLoader$: BehaviorSubject<boolean>;
+
+export class MyComponent {
+
+  @SetChecker() group: ISomeInterface = {
+   test: [
+     {
+       name: 'Hello',
+       age: 30
+     }
+    ]
+  }; // <== (2)
+
+  @WithObservable() showLoader = false; showLoader$: BehaviorSubject<boolean>; // <== (3)
 
   constructor(
     private cd: ChangeDetectorRef // <== MOST IMPORTANT
-  ) {}
+  ) {
+
+    setTimeout(() => {
+      // This won't trigger change detection unless you are using SetChecker :-)
+      this.groups.test[0].name = 'World'
+    },5000)
+
+  }
 }
 ```
 

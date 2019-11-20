@@ -64,7 +64,7 @@ export function SetChecker<J = any>() {
 }
 
 
-export function Observable<T = any>() {
+export function WithObservable<T = any>() {
     return function (target: Object, key: string) {
         const newKey = `${key}$`;
         target[newKey] = new BehaviorSubject<T>(target[key]);
