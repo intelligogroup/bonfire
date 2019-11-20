@@ -20,7 +20,18 @@ export function ReRenderOnChange() {
                 });
 
                 if (!isFound) {
-                    throw new Error(`Change detection ref is not set on this component constructor: == ${target.name} ==`);
+                    throw new Error(`
+                    Change detection ref is not set on this component constructor: == ${target.name} ==
+                    Example: 
+                    ...
+
+                    constructor(
+                        private cd: ChangeDetectorRef
+                    ) { }
+                    ...
+
+          `
+                    );
                 }
                 return Reflect.construct(clz, args);
             }
@@ -33,18 +44,23 @@ export function ReRenderOnChange() {
 export function SetChecker<J = any>() {
 
     return function (target: Object, key: string) {
+        const changeDetection = () => {
+            const cd = target[changeDetectionKey];
+            if (cd && cd.markForCheck) {
+                cd.markForCheck();
+            }
+        };
+
         const handleChange = (path, value, perValue) => {
             if (value !== perValue) {
                 target[`__${key}$$`] = onChange({ value: target[`__${key}$$`].value }, handleChange) as any;
-                const cd = target[changeDetectionKey];
-                if (cd && cd.markForCheck) {
-                    cd.markForCheck();
-                }
+                changeDetection();
             }
         };
 
         const set = (value: J) => {
             target[`__${key}$$`] = onChange({ value }, handleChange);
+            changeDetection();
         };
 
         const get = () => {
@@ -65,8 +81,21 @@ export function SetChecker<J = any>() {
 
 
 export function WithObservable<T = any>() {
+
     return function (target: Object, key: string) {
+
         const newKey = `${key}$`;
+        const newKeyProxy = `___${key}$$$`;
+
+
+        const handleChange = (path, value, perValue) => {
+            if (value !== perValue) {
+                target[newKeyProxy] = onChange({ value: target[newKeyProxy].value }, handleChange);
+                target[newKey].next(target[newKeyProxy].value);
+            }
+        };
+
+        target[newKeyProxy] = onChange({ value: target[key] }, handleChange) as any;
         target[newKey] = new BehaviorSubject<T>(target[key]);
 
         const get = () => {
@@ -74,7 +103,8 @@ export function WithObservable<T = any>() {
         };
 
         const set = (value: T) => {
-            target[newKey].next(value);
+            target[newKeyProxy] = onChange({ value }, handleChange);
+            target[newKey].next(target[newKeyProxy].value);
         };
 
         Object.defineProperty(target, key, {
