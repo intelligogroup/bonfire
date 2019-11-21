@@ -17,6 +17,8 @@ Simple solution to hard problem.
 
 _Now there is no use to call the change detection!_
 
+[Meduim post with examples and gifs](https://medium.com/@tzachbonfil/bonfire-its-easy-to-make-your-app-better-84350b6e24e7)
+
 ## Installation
 
 Bonfire requires [Node.js](https://nodejs.org/) v4+ to run.
