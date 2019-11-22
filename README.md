@@ -6,10 +6,7 @@ Writen by [Tzach bonfil](https://tzachbonfilportfolio.web.app/). [github](https:
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-Bonfire is open source decorators utils for angular.
-
-- Make change detection easy
-- Makes Observable for you
+Bonfire is a set of utilities decorators in Angular designed in order to make code more intuitive and efficient when it comes to tracking changes in the data. It helps implementing the OnPush strategy in an efficient and easy way in order to maintain high performance in those cases.
 
 You can make your code cleaner and simpler with adding just 2 decorators to your code.
 We know that angular change detection is not simple if you want it to be officiant. So I made Bonfire.
