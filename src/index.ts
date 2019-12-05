@@ -96,11 +96,7 @@ export function WithObservable<T = any>(observableKey?: string) {
 
                 Object.defineProperty(this, key, {
                     get: () => {
-                        if (this[proxyKey]) {
-                            return this[proxyKey].value;
-                        } else {
-                            this[key];
-                        }
+                        return this[proxyKey]?.value;
                     },
                     set: (val: T) => {
                         let value = val;

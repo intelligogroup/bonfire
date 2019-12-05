@@ -66,12 +66,8 @@ export function WithObservable(observableKey) {
                 };
                 Object.defineProperty(this, key, {
                     get: function () {
-                        if (_this[proxyKey]) {
-                            return _this[proxyKey].value;
-                        }
-                        else {
-                            _this[key];
-                        }
+                        var _a;
+                        return (_a = _this[proxyKey]) === null || _a === void 0 ? void 0 : _a.value;
                     },
                     set: function (val) {
                         var value = val;

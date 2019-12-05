@@ -1,6 +1,6 @@
 {
   "name": "@intelligo.ai/bonfire",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Open source decorators utils for angular",
   "main": "./dist/lib/index",
   "types": "./dist/types/index",
@@ -33,6 +33,7 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
-    "@types/uuid": "^3.4.6"
+    "@types/uuid": "^3.4.6",
+    "typescript": "^3.7.3"
   }
 }
