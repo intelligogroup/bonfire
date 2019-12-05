@@ -51,30 +51,58 @@ export function SetChecker() {
         });
     };
 }
-export function WithObservable() {
+export function WithObservable(observableKey) {
     return function (target, key) {
-        var newKey = key + "$";
-        var newKeyProxy = "___" + key + "$$$";
-        var handleChange = function (path, value, perValue) {
-            if (value !== perValue) {
-                target[newKeyProxy] = onChange({ value: target[newKeyProxy].value }, handleChange);
-                target[newKey].next(target[newKeyProxy].value);
-            }
+        var pKey = observableKey || key + "$";
+        var proxyKey = "proxy__key__" + key;
+        var init = function (isGet) {
+            return function (newVal) {
+                var _this = this;
+                var handleChange = function (path, value, perValue) {
+                    if (value !== perValue) {
+                        _this[proxyKey] = onChange({ value: _this[proxyKey].value }, handleChange);
+                        _this[pKey].next(value);
+                    }
+                };
+                Object.defineProperty(this, key, {
+                    get: function () {
+                        if (_this[proxyKey]) {
+                            return _this[proxyKey].value;
+                        }
+                        else {
+                            _this[key];
+                        }
+                    },
+                    set: function (val) {
+                        var value = val;
+                        if (!_this[pKey]) {
+                            _this[pKey] = new BehaviorSubject(val);
+                        }
+                        if (_this[proxyKey]) {
+                            _this[proxyKey].value = val;
+                        }
+                        else {
+                            value = val;
+                            _this[proxyKey] = onChange({ value: value }, handleChange);
+                        }
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                if (isGet) {
+                    return this[key]; // get
+                }
+                else {
+                    this[key] = newVal; // set
+                }
+            };
         };
-        target[newKeyProxy] = onChange({ value: target[key] }, handleChange);
-        target[newKey] = new BehaviorSubject(target[key]);
-        var get = function () {
-            return target[newKey].value;
-        };
-        var set = function (value) {
-            target[newKeyProxy] = onChange({ value: value }, handleChange);
-            target[newKey].next(target[newKeyProxy].value);
-        };
-        Object.defineProperty(target, key, {
-            configurable: true,
+        // Override property to let init occur on first get/set
+        return Object.defineProperty(target, key, {
+            get: init(true),
+            set: init(false),
             enumerable: true,
-            get: get,
-            set: set
+            configurable: true
         });
     };
 }
