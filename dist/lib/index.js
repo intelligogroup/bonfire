@@ -60,8 +60,7 @@ export function WithObservable(observableKey) {
                 var _this = this;
                 var handleChange = function (path, value, perValue) {
                     if (value !== perValue) {
-                        _this[proxyKey] = onChange({ value: _this[proxyKey].value }, handleChange);
-                        _this[pKey].next(value);
+                        _this[pKey].next(_this[proxyKey].value);
                     }
                 };
                 Object.defineProperty(this, key, {

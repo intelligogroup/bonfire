@@ -89,8 +89,7 @@ export function WithObservable<T = any>(observableKey?: string) {
             return function (newVal?) {
                 const handleChange = (path, value, perValue) => {
                     if (value !== perValue) {
-                        this[proxyKey] = onChange({ value: this[proxyKey].value }, handleChange);
-                        this[pKey].next(value);
+                        this[pKey].next(this[proxyKey].value);
                     }
                 };
 
