@@ -1,5 +1,5 @@
 {
-  "name": "@intelligo.ai/bonfire",
+  "name": "@intelligogroup/bonfire",
   "version": "1.1.0",
   "description": "Open source decorators utils for angular",
   "main": "./dist/lib/index",
@@ -13,6 +13,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/intelligogroup/bonfire"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "keywords": [
     "angular",
